@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.13;
 
-// @author Kulk0
+// @author Kuly14
 
 /**
  * Simple contract that allows the admin to give permissions to users
