@@ -30,9 +30,7 @@ describe("Access Control", () => {
     it("Should try to change the owner", async () => {
       const { test, deployer } = await setup();
 
-      await expect(
-        deployer.test.changeOwner(deployer.address)
-      ).to.be.revertedWith("Not Authorized");
+      await expect(deployer.test.changeOwner(deployer.address)).to.be.reverted;
     });
 
     it("Should grantPermission to deployer", async () => {
@@ -55,9 +53,7 @@ describe("Access Control", () => {
     it("Should try to change the admin", async () => {
       const { test, users } = await setup();
 
-      await expect(
-        users[0].test.changeAdmin(users[0].address)
-      ).to.be.revertedWith("Admin != msg.sender");
+      await expect(users[0].test.changeAdmin(users[0].address)).to.be.reverted;
     });
 
     it("Should try to grant Permission to user", async () => {
@@ -66,7 +62,7 @@ describe("Access Control", () => {
 
       await expect(
         users[0].test.grantAccess(sig.substring(0, 10), users[0].address)
-      ).to.be.revertedWith("Admin != msg.sender");
+      ).to.be.reverted;
     });
 
     it("Should change the admin", async () => {

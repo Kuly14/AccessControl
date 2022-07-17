@@ -12,6 +12,9 @@ pragma solidity 0.8.13;
  */
 
 contract AccessControl {
+    error notAdmin(address _msgSender);
+    error notAuthorized(bytes4 _sig, address _msgSender);
+
     event AccessGranted(bytes4 _sig, address _user);
     event AccessRevoked(bytes4 _sig, address _user);
     event AdminChanged(address _newAdmin);
@@ -25,12 +28,16 @@ contract AccessControl {
     mapping(bytes4 => mapping(address => bool)) private sig;
 
     modifier isAdmin() {
-        require(admin == msg.sender, "Admin != msg.sender");
+        if (admin != msg.sender) {
+            revert notAdmin(msg.sender);
+        }
         _;
     }
 
     modifier authorized() {
-        require(isAuthorized(msg.sig, msg.sender), "Not Authorized");
+        if (isAuthorized(msg.sig, msg.sender) == false) {
+            revert notAuthorized(msg.sig, msg.sender);
+        }
         _;
     }
 
