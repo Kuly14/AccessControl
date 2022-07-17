@@ -3,6 +3,14 @@ pragma solidity 0.8.13;
 
 // @author Kulk0
 
+/**
+ * Simple contract that allows the admin to give permissions to users
+ * If you want to restrict access to some function just add the modifier authorized
+ * This modifier will check if the user was first approved to call that function.
+ * If admin wants to give somebody permission he needs the selector of the function and address of the user
+ * Then he calls grantAccess(selector, address). Now the user can call that specific function.
+ */
+
 contract AccessControl {
     event AccessGranted(bytes4 _sig, address _user);
     event AccessRevoked(bytes4 _sig, address _user);
